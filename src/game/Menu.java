@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Menu extends JFrame implements ActionListener {
     public static final int HORIZONTAL_OFFSET = 15;
@@ -14,11 +15,8 @@ public class Menu extends JFrame implements ActionListener {
     public static JComboBox<String> levelSelect;
 
     public Menu(){
-        MyMenu();
-    }
-    public void MyMenu(){
         //initialise panel
-        String[] levels = {"Level 1"};
+        String[] levels = {"Level 1", "Level 2", "Level 3"};
         JPanel menuPanel = new JPanel();
         menuPanel.setVisible(true);
         menuPanel.setLayout(null);
@@ -67,18 +65,19 @@ public class Menu extends JFrame implements ActionListener {
 
     public static void loadMenu(){
         //creates a new menu JFrame
+        Game.square.repaint();
         Menu menu = new Menu();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand() == "Play"){
-            Game.currentLevel = levelSelect.getSelectedItem().toString();
-            Game.running = true;
-            setVisible(true);
+        if(e.getActionCommand().equals("Play")){
+            Game.requestedLevel = Objects.requireNonNull(levelSelect.getSelectedItem()).toString();
+            Game.unPause();
+            setVisible(false);
             dispose();
         }
-        else if(e.getActionCommand() == "Exit"){
+        else if(e.getActionCommand().equals("Exit")){
             System.exit(1);
         }
     }
