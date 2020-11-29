@@ -65,6 +65,7 @@ public class Menu extends JFrame implements ActionListener {
 
     public static void loadMenu(){
         //creates a new menu JFrame
+        Game.running = false;
         Game.square.repaint();
         Menu menu = new Menu();
     }
